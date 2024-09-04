@@ -16,9 +16,7 @@ function Form(props: PropsWithChildren<FormProps>){
                     <label htmlFor="email">Email</label>
                     <input type="email" name="email" id="email" />
                 </div>
-                <button type="button" onClick={() => {
-                    fetch('https://ideal-space-dollop-gvxxq6pqjq5h95jj-3030.app.github.dev/logUser', { method: "POST"})
-                }}>testar</button>
+                <button type="submit">Login</button>
             </form>
         </StyledDiv>
     )
