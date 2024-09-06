@@ -71,4 +71,14 @@ export const StyledDiv = styled.div`
         }
     }
 
+    & #keyForm{
+
+    background-image: linear-gradient(to top, orange, rgb(255,190,0));
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+    }
+
 `

@@ -9,9 +9,22 @@ interface FormProps{
     confirmPassword?: boolean
 }
 
+interface UserInterface{
+    email?: string,
+    password?: string
+}
+
+const userData: UserInterface = {
+    
+}
+
 function Form(props: PropsWithChildren<FormProps>){
+
     const [passwordAlert, setPasswordAlert] = useState(false)
+    const [keyInputWindow, setKeyInputWindow] = useState(false)
+
     const { register, handleSubmit, formState: { errors } } = useForm()
+
     const onSubmit = async (data: FieldValues) => {
         if(data.confirm_password){
             if(data.password != data.confirm_password){
@@ -21,15 +34,21 @@ function Form(props: PropsWithChildren<FormProps>){
         }
         await fetch(`http://localhost:3030${props.action}`, { method: "POST", body: JSON.stringify(data), headers:{'Content-Type': 'application/json'} })
         if(data.confirm_password){
-            const key = prompt("Paste the key sent to the email.")
-            fetch(`http://localhost:3030${props.action}/${key || ''}`, { method: "POST", body: JSON.stringify(data), headers:{'Content-Type': 'application/json'} })
+            userData.email = data.email
+            userData.password = data.password
+            setKeyInputWindow(true)
         }
+    }
+
+    const confirmKey = async (data: FieldValues) => {
+        await fetch(`http://localhost:3030${props.action}/${data.key || ''}`, { method: "POST", body: JSON.stringify(userData), headers:{'Content-Type': 'application/json'} })
+        document.location.href = '/login'
     }
 
     return (
         <StyledDiv>
             <form security="true" method="post">
-                <h2>{props.title}</h2>
+                {!keyInputWindow && <><h2>{props.title}</h2>
                 <div>
                     <label htmlFor="email">Email</label> <br />
                     <input type="email" id="email" {...register('email', { required: true, pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ })}/>
@@ -50,7 +69,15 @@ function Form(props: PropsWithChildren<FormProps>){
                     {errors?.confirm_password?.type === 'minLength' && <p>Confirm password must have at least 8 characters.</p>}
                     {passwordAlert && <p>Passwords does not match.</p>}
                 </div>}
-                <button type="button" onClick={() => handleSubmit(onSubmit)()}>{props.button}</button>
+                <button type="button" onClick={() => handleSubmit(onSubmit)()}>{props.button}</button></>}
+                {keyInputWindow && <>
+                    <div>
+                        <label htmlFor="keyInput">Paste the key here</label> <br />
+                        <input type="text" {...register('key')}/>
+                    </div>
+
+                <button type="button" onClick={() => handleSubmit(confirmKey)()}>Confirm</button>
+                </>}
             </form>
         </StyledDiv>
     )
