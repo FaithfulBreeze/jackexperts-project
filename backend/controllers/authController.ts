@@ -23,7 +23,7 @@ class AuthController{
         }
         const tempKey = randomBytes(16).toString('hex')
         try {
-            const transporter = nodemailer.transporter({
+            const transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
                     user: 'todomanagermailer@gmail.com',
