@@ -17,26 +17,6 @@ export const StyledDiv = styled.div`
     & h2{
         margin-bottom: 20px;
     }
-    @media screen and (max-width: 1024px){
-        &{
-            width: 40vw;
-            font-size: 2.3em;
-            padding: 28px 20px;
-        }
-    }
-    @media screen and (max-width: 550px){
-        &{
-            width: 70vw;
-            font-size: 5em;
-            padding: 36px 20px;
-        }
-    }
-    @media screen and (max-width: 450px){
-        &{
-            font-size: 2em;
-            padding: 36px 20px;
-        }
-    }
     & div{
         font-weight: 600;
         text-align: left;
@@ -46,7 +26,7 @@ export const StyledDiv = styled.div`
             border-radius: 8px;
             font: inherit;
             text-indent: 10px;
-            background-color: #F4F4F4;
+            background-color: #FEFEFE;
         }
         & p{
             font-size: 0.65em;
@@ -70,10 +50,8 @@ export const StyledDiv = styled.div`
             box-shadow: 0px 4px 4px #00000055;
         }
     }
-
     & #keyForm{
-
-    background-image: linear-gradient(to top, orange, rgb(255,190,0));
+        background-image: linear-gradient(to top, orange, rgb(255,190,0));
         position: absolute;
         top: 50%;
         left: 50%;
@@ -81,4 +59,26 @@ export const StyledDiv = styled.div`
         z-index: 2;
     }
 
+    @media screen and (max-width: 1024px){
+        &{
+            width: 40vw;
+            font-size: 2.3em;
+            padding: 28px 20px;
+        }
+    }
+
+    @media screen and (max-width: 550px){
+        &{
+            width: 70vw;
+            font-size: 5em;
+            padding: 36px 20px;
+        }
+    }
+    
+    @media screen and (max-width: 450px){
+        &{
+            font-size: 4.2em;
+            padding: 36px 20px;
+        }
+    }
 `

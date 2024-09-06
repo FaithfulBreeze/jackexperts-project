@@ -13,12 +13,6 @@ export const StyledHeader = styled.header`
     box-shadow: 0px 2px 5px #0000002F;
     z-index: 1;
     background-image: linear-gradient(to top, orange, rgb(255,180,0));
-    @media screen and (max-width: 1120px){
-        font-size: 1.8em;
-    }
-    @media screen and (max-width: 455px){
-        font-size: 1em;
-    }
     & nav ul{
         font-size: 0.8em;
         font-weight: 600;
@@ -26,9 +20,6 @@ export const StyledHeader = styled.header`
         align-items: center;
         gap: 20px;
         & li{
-        @media screen and (max-width: 550px){
-            font-size: 1.3em;
-        }
             & a{
                 text-decoration: none;
                 color: white;
@@ -40,10 +31,30 @@ export const StyledHeader = styled.header`
             }
         }
     }
+    @media screen and (max-width: 1120px){
+        &{
+            font-size: 1.9em;
+        }
+    }
     @media screen and (max-width: 950px){
-        height: 60px;
+        &{
+            height: 60px;
+        }
     }
     @media screen and (max-width: 550px){
-        padding: 0 32px;
+        &{
+            padding: 0 32px;
+            &nav ul{
+                gap: 5px;
+            }
+            & nav ul li{
+                font-size: 1.3em;
+            }
+        }
+    }
+    @media screen and (max-width: 455px){
+        &{
+            font-size: 3em;
+        }
     }
 `
