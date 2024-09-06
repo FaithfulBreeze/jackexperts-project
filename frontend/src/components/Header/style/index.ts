@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledHeader = styled.header`
     @import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap'); 
     font-family: "SUSE", sans-serif;
+    font-size: 1.5em;
     color: white;
     padding: 0 64px;
     height: 100px;
@@ -12,13 +13,22 @@ export const StyledHeader = styled.header`
     box-shadow: 0px 2px 5px #0000002F;
     z-index: 1;
     background-image: linear-gradient(to top, orange, rgb(255,180,0));
+    @media screen and (max-width: 1120px){
+        font-size: 1.8em;
+    }
+    @media screen and (max-width: 455px){
+        font-size: 1em;
+    }
     & nav ul{
-        font-size: 1.2em;
+        font-size: 0.8em;
         font-weight: 600;
         display: flex;
         align-items: center;
         gap: 20px;
         & li{
+        @media screen and (max-width: 550px){
+            font-size: 1.3em;
+        }
             & a{
                 text-decoration: none;
                 color: white;

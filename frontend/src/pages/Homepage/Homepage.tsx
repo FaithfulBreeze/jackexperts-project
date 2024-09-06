@@ -2,6 +2,7 @@ import { StyledHomepage } from "./style"
 import main_page_image from '../../assets/main-page-image.jpg'
 import main_page_shape_svg from '../../assets/shape-01.svg'
 import Header from "../../components/Header"
+import { NavLink } from "react-router-dom"
 
 function Homepage() {
   return (
@@ -26,7 +27,7 @@ function Homepage() {
             <div>
               <h1>To Do <br /> Manager</h1>
               <p>The easiest way to manage your daily tasks!</p>
-              <a href="/login"><button>Login page</button></a>
+              <NavLink to="/login"><button>Login page</button></NavLink>
             </div>
           </div>
         </div>

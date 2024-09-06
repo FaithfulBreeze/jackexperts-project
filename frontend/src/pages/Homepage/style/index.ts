@@ -50,6 +50,9 @@ export const StyledHomepage = styled.main`
         & div#content-container{
             width: 40%;
             position: relative;
+            & p{
+                padding-left: 10px;
+            }
             @media screen and (max-width: 450px){
                 &{
                     width: 100%;
@@ -137,11 +140,7 @@ export const StyledHomepage = styled.main`
             }
         }
     }
-    @media screen and (max-width: 1120px){
-    }
     @media screen and (max-width: 950px){
         max-height: calc(100vh - 60px);
-    }
-    @media screen and (max-width: 850px){
     }
 `

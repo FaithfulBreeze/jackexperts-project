@@ -1,5 +1,6 @@
 import Form from "../../components/Form"
 import Header from "../../components/Header"
+import { StyledLoginpage } from "./style"
 
 function Loginpage() {
     return (
@@ -11,13 +12,16 @@ function Loginpage() {
           },
           {
             title: "Signup",
-            href: "Signup"
+            href: "/signup"
           }
         ]} />
-        <Form 
-          title="Welcome back!"
-          action="localhost:3030/logUser"
-        />
+        <StyledLoginpage>
+          <Form 
+            title="Welcome back!"
+            action="/login"
+            button="Login"
+          />
+        </StyledLoginpage>
       </>
     )
   }
