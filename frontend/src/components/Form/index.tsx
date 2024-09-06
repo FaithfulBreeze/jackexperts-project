@@ -20,9 +20,10 @@ function Form(props: PropsWithChildren<FormProps>){
             }
         }
         await fetch(`http://localhost:3030${props.action}`, { method: "POST", body: JSON.stringify(data), headers:{'Content-Type': 'application/json'} })
-        const key = prompt("Paste the key sent to the email.")
-        console.log(key)
-        fetch(`http://localhost:3030${props.action}/${key || ''}`, { method: "POST", body: JSON.stringify(data), headers:{'Content-Type': 'application/json'} })
+        if(data.confirm_password){
+            const key = prompt("Paste the key sent to the email.")
+            fetch(`http://localhost:3030${props.action}/${key || ''}`, { method: "POST", body: JSON.stringify(data), headers:{'Content-Type': 'application/json'} })
+        }
     }
 
     return (
