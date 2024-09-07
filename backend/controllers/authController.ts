@@ -2,6 +2,8 @@ import { Request, Response } from 'express'
 import { randomBytes } from 'crypto'
 import nodemailer from 'nodemailer'
 import userController from './userController'
+import { User } from '../models/User'
+import jwt, { Secret } from 'jsonwebtoken'
 
 class AuthController{
 
@@ -21,11 +23,46 @@ class AuthController{
         }, 1000 * 60 * 5)
     }
 
-    login(req: Request, res: Response){
-        res.json(req.body)
+    async login(req: Request, res: Response){
+        const { body } = req
+        
+        try {
+            const user = await User.findOne({
+                where: {
+                    email: body.email
+                }
+            })
+            if(!user) return res.status(404).json({ message: "User not found." })
+            if(body.password != user.password) return res.status(400).json({ message: "Wrong password." })
+    
+            const token = jwt.sign( //generating jwt for user
+                { payload: user.id },
+                '123172937129371' as Secret,
+                { expiresIn: '12h' }
+            )
+    
+            res.cookie(
+                'jwt',
+                token,
+                {
+                  httpOnly: true,
+                  maxAge: 24000 * 60 * 60
+                }
+            )
+    
+            await User.update({accessToken: token}, {
+                where: {
+                    id: user.id
+                }
+            })
+            
+            res.status(204).end()
+        } catch (error) {
+            res.status(500).json(error)
+        }
     }
 
-    signup(req: Request, res: Response){ // Method to handle signup requests
+    async signup(req: Request, res: Response){ // Method to handle signup requests
         const { body } = req
 
         if(req.params.tempKey){ // If this is true, then the user is sending the temporary key (means that the user is verifying the email)
@@ -37,6 +74,8 @@ class AuthController{
                 tempKeyIndex
             )
         }
+
+        if(await userController.checkTakenEmail(body.email) == true) return res.status(400).json({ message: "Email already in use." })
 
         const tempKey = randomBytes(16).toString('hex') // Generates temporary key
 

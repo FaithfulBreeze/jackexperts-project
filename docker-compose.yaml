@@ -19,6 +19,21 @@ services:
     networks:
       - todo-manager
 
+  database:
+    image: mysql
+    container_name: database
+    ports:
+      - 3306:3306
+    attach: false
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_USER: mysql
+      MYSQL_DATABASE: todo_manager
+    volumes:
+      - ./database:/var/lib/mysql
+    networks:
+      - todo-manager
+
 networks:
   todo-manager:
     driver: bridge
