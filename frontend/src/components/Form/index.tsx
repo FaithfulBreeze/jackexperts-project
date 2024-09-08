@@ -1,6 +1,7 @@
-import { PropsWithChildren, useState } from "react"
+import { PropsWithChildren, useContext, useState } from "react"
 import { StyledDiv } from "./style"
 import { useForm, FieldValues } from "react-hook-form"
+import { LoggedContext } from "../../App"
 
 interface FormProps{
     title: string,
@@ -25,18 +26,24 @@ function Form(props: PropsWithChildren<FormProps>){
 
     const { register, handleSubmit, formState: { errors } } = useForm()
 
+    const loggedContext = useContext(LoggedContext)
+    const setLoggedUser = loggedContext as Function
+
     const onSubmit = async (data: FieldValues) => {
         if(data.confirm_password){
             if(data.password != data.confirm_password){
                 setPasswordAlert(true)
                 return setTimeout(() => setPasswordAlert(false), 3000)
             }
-        }
-        await fetch(`http://localhost:3030${props.action}`, { method: "POST", body: JSON.stringify(data), headers:{'Content-Type': 'application/json'} })
-        if(data.confirm_password){
             userData.email = data.email
             userData.password = data.password
             setKeyInputWindow(true)
+        }else{
+            const loginResponse = await fetch(`http://localhost:3030${props.action}`, { method: "POST", body: JSON.stringify(data), headers:{'Content-Type': 'application/json'} })
+            const parsedLoginResponse = await loginResponse.json()
+            if(parsedLoginResponse.status != 204) return alert(parsedLoginResponse.message)
+            setLoggedUser(true)
+            document.location.href = '/manager'
         }
     }
 

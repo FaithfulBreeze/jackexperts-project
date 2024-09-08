@@ -23,6 +23,10 @@ class AuthController{
         }, 1000 * 60 * 5)
     }
 
+    async userIsLogged(req: Request & { payload?: string }, res: Response){
+        res.json(req.payload)
+    }
+
     async login(req: Request, res: Response){
         const { body } = req
         
@@ -37,7 +41,7 @@ class AuthController{
     
             const token = jwt.sign( //generating jwt for user
                 { payload: user.id },
-                '123172937129371' as Secret,
+                process.env.TOKEN_SECRET as Secret,
                 { expiresIn: '12h' }
             )
     
