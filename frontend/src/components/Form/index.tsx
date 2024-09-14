@@ -2,6 +2,7 @@ import { PropsWithChildren, useContext, useState } from "react"
 import { StyledDiv } from "./style"
 import { useForm, FieldValues } from "react-hook-form"
 import { LoggedContext } from "../../App"
+import { useNavigate } from "react-router-dom"
 
 interface FormProps{
     title: string,
@@ -27,29 +28,42 @@ function Form(props: PropsWithChildren<FormProps>){
     const { register, handleSubmit, formState: { errors } } = useForm()
 
     const loggedContext = useContext(LoggedContext)
-    const setLoggedUser = loggedContext as Function
+    const navigate = useNavigate()
+    const { setLoggedUser } = loggedContext as { setLoggedUser: Function }
+
+    const databaseUrl = 'https://ideal-space-dollop-gvxxq6pqjq5h95jj-3030.app.github.dev'
 
     const onSubmit = async (data: FieldValues) => {
-        if(data.confirm_password){
+        userData.email = data.email
+        userData.password = data.password
+        const response = await fetch(`${databaseUrl}${props.action}`, { method: "POST", body: JSON.stringify(userData), headers:{'Content-Type': 'application/json'} })
+        const parsedResponse = await response.json()
+        if(props.action == '/signup'){
             if(data.password != data.confirm_password){
                 setPasswordAlert(true)
                 return setTimeout(() => setPasswordAlert(false), 3000)
             }
-            userData.email = data.email
-            userData.password = data.password
-            setKeyInputWindow(true)
+            if(response.status >= 200 && response.status <= 299){
+                setKeyInputWindow(true)
+            }else{
+                alert(parsedResponse.message)
+            }
         }else{
-            const loginResponse = await fetch(`http://localhost:3030${props.action}`, { method: "POST", body: JSON.stringify(data), headers:{'Content-Type': 'application/json'} })
-            const parsedLoginResponse = await loginResponse.json()
-            if(parsedLoginResponse.status != 204) return alert(parsedLoginResponse.message)
-            setLoggedUser(true)
-            document.location.href = '/manager'
+            if(response.status >= 200 && response.status <= 299){
+                setLoggedUser(true)
+                return navigate('/manager')
+            }
+            alert(parsedResponse.message)
         }
     }
 
     const confirmKey = async (data: FieldValues) => {
-        await fetch(`http://localhost:3030${props.action}/${data.key || ''}`, { method: "POST", body: JSON.stringify(userData), headers:{'Content-Type': 'application/json'} })
-        document.location.href = '/login'
+        const response = await fetch(`${databaseUrl}${props.action}/${data.key || ''}`, { method: "POST", body: JSON.stringify(userData), headers:{'Content-Type': 'application/json'} })
+        const parsedResponse = await response.json()
+        if(response.status >= 200 && response.status <= 299){
+            return navigate('/login')
+        }
+        alert(parsedResponse.message)
     }
 
     return (

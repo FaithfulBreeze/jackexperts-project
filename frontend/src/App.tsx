@@ -11,7 +11,7 @@ function App() {
   const [loggedUser, setLoggedUser] = useState(false)
 
   return (
-    <LoggedContext.Provider value={setLoggedUser}>
+    <LoggedContext.Provider value={{setLoggedUser}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Homepage />}/>

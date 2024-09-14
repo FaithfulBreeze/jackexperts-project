@@ -60,7 +60,7 @@ class AuthController{
                 }
             })
             
-            res.status(204).end()
+            res.status(200).json({ token })
         } catch (error) {
             res.status(500).json(error)
         }
@@ -99,7 +99,7 @@ class AuthController{
                 text: `Paste the key and confirm to finish user creation\nThis key is valid for 5 minutes.\nKey: ${tempKey}`
             }
 
-            transporter.sendMail(mailOptions, () => res.status(204).end()) // Send mail, if success response with 204 status
+            transporter.sendMail(mailOptions, () => res.status(200).json({ message: 'Email sent.'})) // Send mail, if success response with 204 status
 
             AuthController.tempCreationKeys.push({ // inserts the temporary key in the array
                 email: body.email,
