@@ -1,26 +1,26 @@
 import Header from "../../components/Header"
-import { StyledManagerpage } from "./style"
+import { StyledAddTaskpage } from "./style"
 
-function Managerpage() {
+function AddTaskpage() {
     return (
       <>
         <Header links={[
           {
-            title: "Add Task",
-            href: "/create"
+            title: "Tasks",
+            href: "/manager"
           },
           {
             title: "Settings",
             href: "/settings"
           }
         ]} />
-        <StyledManagerpage>
+        <StyledAddTaskpage>
           
-        </StyledManagerpage>
+        </StyledAddTaskpage>
       </>
     )
   }
   
-  export default Managerpage
+  export default AddTaskpage
 
   

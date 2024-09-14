@@ -8,7 +8,6 @@ router.post('/login', authController.login)
 router.post('/signup', authController.signup)
 router.post('/signup/:tempKey', authController.signup)
 
-router.get('/users', userController.listUsers)
 router.get('/isUserLogged', jwtVerify, authController.userIsLogged)
 
 
