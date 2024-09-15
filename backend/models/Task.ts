@@ -26,11 +26,12 @@ Task.init(
             defaultValue: false
         },
         compleationDeadline: {
-            allowNull: true,
+            allowNull: false,
             type: DataTypes.DATE
         },
         userId: {
-            type: DataTypes.NUMBER,
+            type: DataTypes.STRING,
+            allowNull: false,
             references: {
                 model: User,
                 key: 'id'
