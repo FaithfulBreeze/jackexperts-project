@@ -7,8 +7,7 @@ export const jwtVerify = (req: Request & { userId?: string }, res: Response, nex
     if(!cookies.jwt)  return res.status(401).send('Unauthorized') //no jwt cookie
 
     jwt.verify(cookies.jwt, process.env.TOKEN_SECRET as Secret, async (err: any, { payload }: any) => {
-        if(err || !payload) return res.status(401).send('Unauthorized') // not authorized
-
+        if(err) return res.status(401).send('Unauthorized') // not authorized
         try {
             const user = await User.findByPk(payload)
             if(!user) throw new Error('Failed on fetching requested id.')

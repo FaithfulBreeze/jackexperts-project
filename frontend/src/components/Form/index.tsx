@@ -31,12 +31,12 @@ function Form(props: PropsWithChildren<FormProps>){
     const navigate = useNavigate()
     const { setLoggedUser } = loggedContext as { setLoggedUser: Function }
 
-    const databaseUrl = 'https://ideal-space-dollop-gvxxq6pqjq5h95jj-3030.app.github.dev'
+    const backendUrl = 'https://ideal-space-dollop-gvxxq6pqjq5h95jj-3030.app.github.dev'
 
     const onSubmit = async (data: FieldValues) => {
         userData.email = data.email
         userData.password = data.password
-        const response = await fetch(`${databaseUrl}${props.action}`, { method: "POST", body: JSON.stringify(userData), headers:{'Content-Type': 'application/json'} })
+        const response = await fetch(`${backendUrl}${props.action}`, { method: "POST", credentials: 'include', body: JSON.stringify(userData), headers:{'Content-Type': 'application/json'} })
         const parsedResponse = await response.json()
         if(props.action == '/signup'){
             if(data.password != data.confirm_password){
@@ -58,7 +58,7 @@ function Form(props: PropsWithChildren<FormProps>){
     }
 
     const confirmKey = async (data: FieldValues) => {
-        const response = await fetch(`${databaseUrl}${props.action}/${data.key || ''}`, { method: "POST", body: JSON.stringify(userData), headers:{'Content-Type': 'application/json'} })
+        const response = await fetch(`${backendUrl}${props.action}/${data.key || ''}`, { method: "POST", credentials: 'include', body: JSON.stringify(userData), headers:{'Content-Type': 'application/json'} })
         const parsedResponse = await response.json()
         if(response.status >= 200 && response.status <= 299){
             return navigate('/login')

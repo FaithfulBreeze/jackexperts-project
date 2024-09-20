@@ -22,7 +22,7 @@ Task.init(
         },
         done: {
             allowNull: false,
-            type: DataTypes.TINYINT,
+            type: DataTypes.BOOLEAN,
             defaultValue: false
         },
         compleationDeadline: {

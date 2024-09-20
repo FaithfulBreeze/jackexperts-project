@@ -2,11 +2,12 @@ import { Request, Response } from 'express'
 import { Task } from '../models/Task'
 
 class TaskController{
-    async createTask(req: Request & { payload?: string }, res: Response){
+    async createTask(req: Request & { userId?: string }, res: Response){
         const { body } = req
+        body.compleationDeadline = body.compleationDeadline.split('T').join(' ')
         const data = {
             ...body,
-            userId: req.payload
+            userId: req.userId
         }
         try {
             const task = await Task.create(data)
@@ -16,11 +17,11 @@ class TaskController{
         }
     }
 
-    async listTasks(req: Request & { payload?: string }, res: Response){
+    async listTasks(req: Request & { userId?: string }, res: Response){
         try {
             const tasks = await Task.findAll({
                 where:{
-                    userId: req.payload
+                    userId: req.userId
                 }
             })
             res.json(tasks)

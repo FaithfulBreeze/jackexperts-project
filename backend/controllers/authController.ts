@@ -23,8 +23,8 @@ class AuthController{
         }, 1000 * 60 * 5)
     }
 
-    async userIsLogged(req: Request & { payload?: string }, res: Response){
-        res.json(req.payload)
+    async userIsLogged(req: Request & { userId?: string }, res: Response){
+        res.json(req.userId)
     }
 
     async login(req: Request, res: Response){
@@ -50,7 +50,9 @@ class AuthController{
                 token,
                 {
                   httpOnly: true,
-                  maxAge: 24000 * 60 * 60
+                  maxAge: 24000 * 60 * 60,
+                  sameSite: 'none',
+                  secure: true
                 }
             )
     
