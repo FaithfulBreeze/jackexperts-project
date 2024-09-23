@@ -29,6 +29,20 @@ class TaskController{
             res.status(500).json(error)
         }
     }
+
+    async updateTask(req: Request, res: Response){
+        const taskId = req.query.id
+        if(!taskId) return res.status(400).json({ message: "No task provided." })
+        try {
+            const task = await Task.findByPk(taskId as string)
+            if(!task) return res.status(404).json({ message: "Task not found." })
+            task.done = !task.done
+            task.save()
+            res.status(204).json({ message: "Task updated." })
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    }
 }
 
 export default new TaskController()

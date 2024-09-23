@@ -12,5 +12,7 @@ router.post('/tasks/create', jwtVerify, taskController.createTask)
 router.get('/isUserLogged', jwtVerify, authController.userIsLogged)
 router.get('/tasks', jwtVerify, taskController.listTasks)
 
+router.put('/tasks/update', jwtVerify, taskController.updateTask)
+
 
 export default router
