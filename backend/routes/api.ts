@@ -14,5 +14,7 @@ router.get('/tasks', jwtVerify, taskController.listTasks)
 
 router.put('/tasks/update', jwtVerify, taskController.updateTask)
 
+router.delete('/tasks/delete', jwtVerify, taskController.deleteTask)
+
 
 export default router
