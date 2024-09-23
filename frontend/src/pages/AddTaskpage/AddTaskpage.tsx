@@ -6,7 +6,7 @@ function AddTaskpage() {
 
   const { register, handleSubmit } = useForm() 
 
-  const backendUrl = 'https://ideal-space-dollop-gvxxq6pqjq5h95jj-3030.app.github.dev'
+  const backendUrl = import.meta.env.VITE_BACKEND_URL
 
   const sendForm = async (data: FieldValues) => {
     fetch(`${backendUrl}/tasks/create`, {

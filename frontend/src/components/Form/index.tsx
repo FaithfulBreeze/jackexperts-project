@@ -31,7 +31,7 @@ function Form(props: PropsWithChildren<FormProps>){
     const navigate = useNavigate()
     const { setLoggedUser } = loggedContext as { setLoggedUser: Function }
 
-    const backendUrl = 'https://ideal-space-dollop-gvxxq6pqjq5h95jj-3030.app.github.dev'
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
 
     const onSubmit = async (data: FieldValues) => {
         userData.email = data.email
