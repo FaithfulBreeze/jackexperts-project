@@ -13,8 +13,9 @@ function TaskCardListing(){
     let userTasks = await response.json()
 
     userTasks = userTasks.map((task: TaskCardProps, key: number) => {
-      return <TaskCard 
-        setTaskCardListing={setTasks} 
+      return <TaskCard
+        key={key}
+        setTaskCardListing={loadTasks} 
         title={task.title} 
         description={task.description} 
         compleationDeadline={task.compleationDeadline} 
