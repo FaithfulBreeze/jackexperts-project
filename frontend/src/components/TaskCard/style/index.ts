@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const StyledTaskCard = styled.li`
     display: flex;
+    font-size: 1.4em;
     flex-direction: column;
     gap: 10px;
     font-family: inherit;
@@ -30,6 +31,12 @@ export const StyledTaskCard = styled.li`
         &:hover{
             transform: scale(1.05);
             box-shadow: 4px 4px 4px #00000055;
+        }
+    }
+
+    @media screen and (max-width: 500px){
+        &{
+            flex-direction: column;
         }
     }
 `

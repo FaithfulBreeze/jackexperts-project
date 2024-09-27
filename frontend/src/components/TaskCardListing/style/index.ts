@@ -11,4 +11,10 @@ export const StyledTaskCardListing = styled.ul`
     height: calc(100vh - 100px);
     margin: auto;
     overflow: scroll;
+
+    @media screen and (max-width: 950px){
+        &{
+            height: calc(100vh - 60px);
+        }
+    }
 `
