@@ -24,13 +24,13 @@ function TaskCard(props: PropsWithChildren<TaskCardProps>){
 
     return (
         <StyledTaskCard>
-            <div id="headers-container">
+            <div className="desktop" id="headers-container">
                 <h2>{props.title}</h2>
                 <h3>Compleation Deadline:</h3>
             </div>
-            <div id="info-container">
+            <div className="desktop" id="info-container">
                 <div id="left-side">
-                    <p>{props.description}</p>
+                    <p id="content">{props.description}</p>
                     <p>Completed: {props.done.toString()}</p>
                 </div>
                 <div id="right-side">
@@ -48,7 +48,31 @@ function TaskCard(props: PropsWithChildren<TaskCardProps>){
                     }</h4>
                 </div>
             </div>
-            <div id="controls-container">
+            <div className="desktop" id="controls-container">
+                <button onClick={updateTask}>Set task status</button>
+                <button onClick={deleteTask}>Remove Task</button>
+            </div>
+            <div className="mobile" id="top-container">
+                <h2>{props.title}</h2>
+                <p id="content">{props.description}</p>
+                <p>Completed: {props.done.toString()}</p>
+            </div>
+            <div className="mobile" id="bottom-container">
+                <h3>Compleation Deadline:</h3>
+                <h4>{
+                    props.compleationDeadline
+                    .split('T')[0]
+                    .split('-')
+                    .reverse()
+                    .join('/')
+                }</h4>
+                <h4>{
+                    props.compleationDeadline
+                    .split('T')[1]
+                    .split('.')[0]    
+                }</h4>
+            </div>
+            <div className="mobile" id="controls-container">
                 <button onClick={updateTask}>Set task status</button>
                 <button onClick={deleteTask}>Remove Task</button>
             </div>

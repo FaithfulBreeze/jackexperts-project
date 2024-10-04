@@ -36,15 +36,15 @@ function AddTaskpage() {
         <form action={`${backendUrl}/tasks/create`}>
           <div>
             <label htmlFor="title">Title: </label>
-            <input type="text" id="title" {...register('title')} />
+            <input type="text" id="title" {...register('title',  { required: true })} />
           </div>
           <div>
             <label htmlFor="compleationDeadline">Description: </label>
-            <input type="text" id="description" {...register('description')} />
+            <input type="text" id="description" {...register('description',  { required: true })} />
           </div>
           <div>
             <label htmlFor="compleationDeadline">Compleation Deadline: </label>
-            <input type="datetime-local" id="compleationDeadline" {...register('compleationDeadline')} />
+            <input type="datetime-local" id="compleationDeadline" {...register('compleationDeadline',  { required: true })} />
           </div>
           <button type="button" onClick={() => handleSubmit(sendForm)()}>Add Task</button>
         </form>
