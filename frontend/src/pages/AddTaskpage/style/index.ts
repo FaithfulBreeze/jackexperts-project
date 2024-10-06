@@ -45,6 +45,7 @@ export const StyledAddTaskpage = styled.main`
             }
         }
     }
+    
     @media screen and (max-width: 1024px){
         &{
             font-size: 2em;

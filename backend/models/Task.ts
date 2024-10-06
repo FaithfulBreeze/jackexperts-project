@@ -3,6 +3,7 @@ import { sequelize } from "../services/databaseConnection";
 import { User } from "./User";
 
 export class Task extends Model<InferAttributes<Task>, InferCreationAttributes<Task>>{
+    declare id: string
     declare title: string
     declare description: string
     declare done: boolean
@@ -12,6 +13,11 @@ export class Task extends Model<InferAttributes<Task>, InferCreationAttributes<T
 
 Task.init(
     {
+        id:{
+            allowNull: true,
+            type: DataTypes.STRING,
+            primaryKey: true,
+        },
         title: {
             allowNull: false,
             type: DataTypes.STRING

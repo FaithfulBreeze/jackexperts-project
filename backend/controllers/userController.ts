@@ -2,6 +2,7 @@ import { Request, Response } from "express"
 import authController from "./authController"
 import { User } from "../models/User"
 import { randomUUID } from 'crypto'
+import { Task } from "../models/Task"
 
 interface UserInterface{
     email: string,
@@ -29,6 +30,24 @@ class UserController{
                 id: randomUUID()
             })
             res.status(201).json({ message: "User created.", user })
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    }
+
+    async deleteUser(req: Request & { userId?: string }, res: Response){
+        try {
+            await Task.destroy({
+                where: {
+                    id: req.userId
+                }
+            })
+            await User.destroy({
+                where: {
+                    id: req.userId,
+                }
+            })
+            res.status(204).end()
         } catch (error) {
             res.status(500).json(error)
         }

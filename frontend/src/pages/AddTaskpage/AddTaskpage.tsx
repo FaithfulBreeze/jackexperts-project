@@ -1,15 +1,17 @@
 import { FieldValues, useForm } from "react-hook-form"
 import Header from "../../components/Header"
 import { StyledAddTaskpage } from "./style"
+import { useNavigate } from "react-router-dom"
 
 function AddTaskpage() {
 
   const { register, handleSubmit } = useForm() 
+  const navigate = useNavigate()
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL
 
   const sendForm = async (data: FieldValues) => {
-    fetch(`${backendUrl}/tasks/create`, {
+    await fetch(`${backendUrl}/tasks/create`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -17,6 +19,7 @@ function AddTaskpage() {
       },
       credentials: 'include'
     })
+    navigate('/manager')
   }
 
   return (

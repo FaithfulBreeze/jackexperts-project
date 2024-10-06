@@ -1,7 +1,9 @@
 import { Request, Response } from 'express'
 import { Task } from '../models/Task'
+import { User } from '../models/User'
 
 class TaskController{
+
     async createTask(req: Request & { userId?: string }, res: Response){
         const { body } = req
         body.compleationDeadline = body.compleationDeadline.split('T').join(' ')
