@@ -36,19 +36,21 @@ function Form(props: PropsWithChildren<FormProps>){
     const onSubmit = async (data: FieldValues) => {
         userData.email = data.email
         userData.password = data.password
-        const response = await fetch(`${backendUrl}${props.action}`, { method: "POST", credentials: 'include', body: JSON.stringify(userData), headers:{'Content-Type': 'application/json'} })
-        const parsedResponse = await response.json()
         if(props.action == '/signup'){
             if(data.password != data.confirm_password){
                 setPasswordAlert(true)
                 return setTimeout(() => setPasswordAlert(false), 3000)
             }
+            const response = await fetch(`${backendUrl}${props.action}`, { method: "POST", credentials: 'include', body: JSON.stringify(userData), headers:{'Content-Type': 'application/json'} })
+            const parsedResponse = await response.json()
             if(response.status >= 200 && response.status <= 299){
                 setKeyInputWindow(true)
             }else{
                 alert(parsedResponse.message)
             }
         }else{
+            const response = await fetch(`${backendUrl}${props.action}`, { method: "POST", credentials: 'include', body: JSON.stringify(userData), headers:{'Content-Type': 'application/json'} })
+            const parsedResponse = await response.json()
             if(response.status >= 200 && response.status <= 299){
                 setLoggedUser(true)
                 return navigate('/manager')

@@ -11,6 +11,13 @@ export const LoggedContext = createContext({})
 
 function App() {
   const [loggedUser, setLoggedUser] = useState(false)
+  if(loggedUser){
+    localStorage.setItem('logged', 'true')
+  }else{
+    if(localStorage.getItem('logged') == 'true'){
+      setLoggedUser(true)
+    }
+  }
 
   return (
     <LoggedContext.Provider value={{setLoggedUser}}>
@@ -24,6 +31,7 @@ function App() {
             <Route path="/create" element={<AddTaskpage />}/>,
             <Route path="/settings" element={<Settingspage />}/>
           ]}
+          <Route path="/*" element={<Homepage />}/>
         </Routes>
       </BrowserRouter>
     </LoggedContext.Provider>

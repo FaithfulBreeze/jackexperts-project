@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { Task } from '../models/Task'
-import { User } from '../models/User'
+import { randomUUID } from 'crypto'
 
 class TaskController{
 
@@ -8,6 +8,7 @@ class TaskController{
         const { body } = req
         body.compleationDeadline = body.compleationDeadline.split('T').join(' ')
         const data = {
+            id: randomUUID(),
             ...body,
             userId: req.userId
         }

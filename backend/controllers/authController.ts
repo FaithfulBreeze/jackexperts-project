@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer'
 import userController from './userController'
 import { User } from '../models/User'
 import jwt, { Secret } from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
 
 class AuthController{
 
@@ -37,7 +38,8 @@ class AuthController{
                 }
             })
             if(!user) return res.status(404).json({ message: "User not found." })
-            if(body.password != user.password) return res.status(400).json({ message: "Wrong password." })
+            const match = bcrypt.compareSync(body.password, user.password)
+            if(!match) return res.status(400).json({ message: "Wrong password." })
     
             const token = jwt.sign( //generating jwt for user
                 { payload: user.id },

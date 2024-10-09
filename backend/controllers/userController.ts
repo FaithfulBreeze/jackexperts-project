@@ -3,6 +3,7 @@ import authController from "./authController"
 import { User } from "../models/User"
 import { randomUUID } from 'crypto'
 import { Task } from "../models/Task"
+import bcrypt from 'bcrypt'
 
 interface UserInterface{
     email: string,
@@ -24,6 +25,7 @@ class UserController{
         if(tempKeyIndex == -1) return res.status(500).json({ message: "Error: No tempKey found." })
         authController.removeTempKey(tempKeyIndex)
         try {
+            userData.password = bcrypt.hashSync(userData.password, 10)
             const user = await User.create({
                 ...userData,
                 accessToken: '',
@@ -39,12 +41,27 @@ class UserController{
         try {
             await Task.destroy({
                 where: {
-                    id: req.userId
+                    userId: req.userId
                 }
             })
             await User.destroy({
                 where: {
                     id: req.userId,
+                }
+            })
+            res.status(204).end()
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    }
+
+    async updatePassword(req: Request & { userId?: string}, res : Response){
+        try {
+            const newPassword = req.body.password
+            const hashedNewPassword = bcrypt.hashSync(newPassword, 10)
+            User.update({ password: hashedNewPassword }, {
+                where: {
+                    id: req.userId
                 }
             })
             res.status(204).end()

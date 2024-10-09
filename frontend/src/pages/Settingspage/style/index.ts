@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledSettingspage = styled.main`
     position: relative;
     height: calc(100vh - 100px);
-    & div{
+    &>div{
         @import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap'); 
         position: absolute;
         display: flex;
@@ -19,6 +19,25 @@ export const StyledSettingspage = styled.main`
         padding: 20px 30px;
         text-align: center;
         font-size: 1.6em;
+        &>div{
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            font-weight: 600;
+            & p{
+                font-size: 0.65em;
+                color: red;
+                font-weight: normal;
+                margin-top: 6px;
+            }
+            & input{
+                width: 100%;
+                border-radius: 8px;
+                font: inherit;
+                text-indent: 10px;
+                background-color: #FEFEFE;
+            }
+        }
         & button{
             display: block;
             min-width: 33vw;

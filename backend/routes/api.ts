@@ -14,6 +14,7 @@ router.get('/isUserLogged', jwtVerify, authController.userIsLogged)
 router.get('/tasks', jwtVerify, taskController.listTasks)
 
 router.put('/tasks/update', jwtVerify, taskController.updateTask)
+router.put('/user/update', jwtVerify, userController.updatePassword)
 
 router.delete('/tasks/delete', jwtVerify, taskController.deleteTask)
 router.delete('/user/delete', jwtVerify, userController.deleteUser)
