@@ -61,7 +61,7 @@ export const StyledSettingspage = styled.main`
 
     @media screen and (max-width: 1024px){
         & div{
-            font-size: 5em;
+            font-size: 4em;
             padding: 24px 16px;
         }
     }

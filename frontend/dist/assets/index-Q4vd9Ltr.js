@@ -229,6 +229,7 @@ Error generating stack: `+l.message+`
         top: 60px;
         width: 33vw;
         height: 100%;
+        font-size: 1.4em;
         & nav ul{
             display: flex;
             flex-direction: column;
@@ -403,6 +404,9 @@ Error generating stack: `+l.message+`
     height: calc(100vh - 100px);
     margin: auto;
     overflow: scroll;
+    h2{
+        font-size: 4.5vw;
+    }
 
     @media screen and (max-width: 950px){
         &{
@@ -595,7 +599,7 @@ Error generating stack: `+l.message+`
 
     @media screen and (max-width: 1024px){
         & div{
-            font-size: 5em;
+            font-size: 4em;
             padding: 24px 16px;
         }
     }

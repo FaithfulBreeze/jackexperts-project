@@ -11,6 +11,9 @@ export const StyledTaskCardListing = styled.ul`
     height: calc(100vh - 100px);
     margin: auto;
     overflow: scroll;
+    h2{
+        font-size: 4.5vw;
+    }
 
     @media screen and (max-width: 950px){
         &{

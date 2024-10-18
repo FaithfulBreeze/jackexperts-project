@@ -21,6 +21,7 @@ export const StyledHeader = styled.header`
         top: 60px;
         width: 33vw;
         height: 100%;
+        font-size: 1.4em;
         & nav ul{
             display: flex;
             flex-direction: column;
