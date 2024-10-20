@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "tsc && node app.js",
-    "dev": "ts-node-dev app.ts"
+    "start": "tsc && node dist/app.js"
   },
   "keywords": [],
   "author": "",

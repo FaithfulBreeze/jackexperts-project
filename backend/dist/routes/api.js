@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const authController_1 = __importDefault(require("../controllers/authController"));
+const taskController_1 = __importDefault(require("../controllers/taskController"));
+const jwtVerify_1 = require("../middlewares/jwtVerify");
+const userController_1 = __importDefault(require("../controllers/userController"));
+const router = express_1.default.Router();
+router.post('/login', authController_1.default.login);
+router.post('/signup', authController_1.default.signup);
+router.post('/signup/:tempKey', authController_1.default.signup);
+router.post('/tasks/create', jwtVerify_1.jwtVerify, taskController_1.default.createTask);
+router.get('/isUserLogged', jwtVerify_1.jwtVerify, authController_1.default.userIsLogged);
+router.get('/tasks', jwtVerify_1.jwtVerify, taskController_1.default.listTasks);
+router.put('/tasks/update', jwtVerify_1.jwtVerify, taskController_1.default.updateTask);
+router.put('/user/update', jwtVerify_1.jwtVerify, userController_1.default.updatePassword);
+router.delete('/tasks/delete', jwtVerify_1.jwtVerify, taskController_1.default.deleteTask);
+router.delete('/user/delete', jwtVerify_1.jwtVerify, userController_1.default.deleteUser);
+exports.default = router;
